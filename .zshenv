@@ -96,6 +96,7 @@ alias ssh='ssh-add -l|grep -v "The agent has no identities" || ssh-add && unalia
 alias git='ssh-add -l|grep -v "The agent has no identities" || ssh-add && unalias git && git'
 #alias git='git --no-pager'
 alias mkvirtualenv='mkvirtualenv --no-site-packages'
+alias vpn="$HOME/bin/sshuttle/sshuttle -r jump1.ash.spotify.net -x 10.40.0.0/24 -x 192.168.1.0/24 0.0.0.0/0"
 
 alias emerge='emerge -avt -p'
 alias em='/usr/bin/emerge -vt'
@@ -106,7 +107,6 @@ alias emremove='emerge -c'
 alias embuild='emerge -uNDB world' # Build but don't install
 alias emapply='emerge -uNDK world' # Install previously built
 alias emclean="rm -rf /var/tmp/portage/*; rm -rf /usr/portage/distfiles/*"
-
 
 # Set terminal title
 case $TERM in
