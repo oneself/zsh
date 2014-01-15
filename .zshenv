@@ -1,19 +1,21 @@
 
 ## General
 export CVS_RSH=ssh
-export JPDA_ADDRESS=9005
 # Prevent firefox from open remote instance locally
 export MOZ_NO_REMOTE=1
 export LC_ALL=en_US.UTF-8
+
+
+# Set keyboard repeat rate
+xset r rate 500 50
 
 ## Java
 export JAVA_HOME=/devel/jdk
 export JDK_HOME=$JAVA_HOME
 export MAVEN_HOME=/devel/maven
 export ANT_OPTS=-Xmx256M
-# Java 1.7 causes the keyboard to stop working
+# Java 1.7 causes the keyboard to stop working in xmonad
 export IDEA_JDK=/devel/jdk6
-export M2_HOME=/devel/maven
 
 # Needs this to make Java work with xmonad.
 # Commented this out since I think it causes keyboard problems.
@@ -23,7 +25,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 ## Python
 export WORKON_HOME="$HOME/.virtualenvs"
 #source /usr/bin/virtualenvwrapper.sh
-source /etc/bash_completion.d/virtualenvwrapper
+#source /etc/bash_completion.d/virtualenvwrapper
 
 ## Jython
 # Cannot use JYTHON_HOME because it conflicts with some Jython scripts.
@@ -53,9 +55,9 @@ fi
 
 # Path
 PATH="$HOME/bin:$PATH"
+PATH="$JAVA_HOME/bin:$PATH"
 PATH="$PATH:/sbin"
 PATH="$PATH:/usr/sbin"
-PATH="$PATH:$JAVA_HOME/bin"
 PATH="$PATH:$HOME/bin/kindle"
 PATH="$PATH:/devel/google_appengine"
 PATH="$PATH:$ORACLE_HOME/bin"
@@ -66,6 +68,7 @@ PATH="$PATH:$JYTHON_HME/bin"
 PATH="$PATH:$ANT_HOME/bin"
 PATH="$PATH:/opt/cxoffice/bin"
 PATH="$PATH:/devel/maven/bin"
+PATH="$PATH:/devel/pebble/arm-cs-tools/bin"
 
 alias cvs='cvs -q'
 alias rsync='rsync -e ssh'
@@ -96,7 +99,8 @@ alias ssh='ssh-add -l|grep -v "The agent has no identities" || ssh-add && unalia
 alias git='ssh-add -l|grep -v "The agent has no identities" || ssh-add && unalias git && git'
 #alias git='git --no-pager'
 alias mkvirtualenv='mkvirtualenv --no-site-packages'
-alias vpn="$HOME/bin/sshuttle/sshuttle -r jump1.ash.spotify.net -x 10.40.0.0/24 -x 192.168.1.0/24 0.0.0.0/0"
+#traceroute: mtr
+alias bk='cd +0'
 
 alias emerge='emerge -avt -p'
 alias em='/usr/bin/emerge -vt'

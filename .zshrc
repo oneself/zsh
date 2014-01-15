@@ -18,6 +18,8 @@ setopt MULTIOS
 # Spell check commands!  (Sometimes annoying)
 setopt CORRECT
 
+# http://stackoverflow.com/questions/3986760/cd-1-2-3-etc-in-z-shell
+
 # This makes cd=pushd
 setopt AUTO_PUSHD
 
@@ -32,7 +34,7 @@ setopt PUSHD_MINUS
 # setopt PUSHD_SILENT
 
 # blank pushd goes to home
-setopt PUSHD_TO_HOME
+#setopt PUSHD_TO_HOME
 
 # this will ignore multiple directories for the stack.  Useful?  I dunno.
 setopt PUSHD_IGNORE_DUPS
@@ -234,6 +236,31 @@ preexec_update_git_vars () {
         ;;
     esac
 }
+
+
+## Spotify repo completion
+function spclone() {
+  repo=$1 ; shift
+  git clone git.spotify.net:$repo $*
+}
+
+function _repo_complete() {
+  local host file now
+  host=${SP_REPO_HOST:-git.spotify.net}
+  file=${SP_REPO_FILE:-$HOME/.spclone_cache}
+  now=$(date +'%s')
+
+  # Use a simple cache to speed things up.
+  # export SP_REPO_CACHE=0 to force refresh.
+  if [[ ! -f $file ]] || [[ $(($now - ${SP_REPO_CACHE:-0})) -gt 300 ]]; then
+    ssh $host gerrit ls-projects 2> /dev/null > $file
+    export SP_REPO_CACHE=$now
+  fi
+
+  reply=($(<$file))
+}
+
+compctl -K _repo_complete spclone
 
 # Enable auto-execution of functions.
 typeset -ga preexec_functions
