@@ -11,7 +11,8 @@ from subprocess import Popen, PIPE, STDOUT
 BEHEAD_RE = re.compile(r"Your branch is (ahead of|behind) '(.*)' by (\d+) commit")
 DIVERGE_RE = re.compile(r"and have (\d+) and (\d+) different")
 
-output = Popen(['/usr/bin/git','status', '^/dev/null'], stdout=PIPE, stderr=STDOUT).communicate()[0]
+#output = Popen(['/usr/bin/git','status', '^/dev/null'], stdout=PIPE, stderr=STDOUT).communicate()[0]
+output = Popen(['/usr/bin/git','status'], stdout=PIPE, stderr=STDOUT).communicate()[0]
 lines = output.splitlines()
 symbols = {'ahead of': '↑', 'behind': '↓'}
 
@@ -28,7 +29,7 @@ else:
   if match:
     branch += symbols[match.groups()[0]]
     branch += match.groups()[2]
-  elif lines[3].find('nothing to commit, working directory clean') != -1:
+  elif len(lines) > 3 and lines[3].find('nothing to commit, working directory clean') != -1:
     branch += '⚡'
   else:
     if len(lines) > 2:

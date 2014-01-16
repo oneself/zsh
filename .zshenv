@@ -26,6 +26,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export WORKON_HOME="$HOME/.virtualenvs"
 #source /usr/bin/virtualenvwrapper.sh
 #source /etc/bash_completion.d/virtualenvwrapper
+. /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 ## Jython
 # Cannot use JYTHON_HOME because it conflicts with some Jython scripts.
